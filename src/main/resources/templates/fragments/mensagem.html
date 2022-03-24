@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+		<div class="alert alert-danger text-center" th:if="${not #strings.isEmpty(msgErro)}"><!--  not #strings, THYMELEAF -->
+			<span th:text="${msgErro}"></span>
+		</div>
+		
+		<div class="alert alert-sucess text-center" th:if="${not #strings.isEmpty(msgSucesso)}">
+			<span th:text="${msgSucesso}"></span>
+		</div>
+
+</body>
+</html>
