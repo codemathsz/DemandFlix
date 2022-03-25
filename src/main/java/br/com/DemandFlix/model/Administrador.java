@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 
 import javax.validation.constraints.NotEmpty;
 
+import br.com.DemandFlix.util.HashUtil;
 import lombok.Data;
 
 @Data // GETTERS E SETTERS
@@ -27,5 +28,13 @@ public class Administrador {
 	private String email;
 	@NotEmpty
 	private String senha;
+	
+	
+	// MÉTODO SET QUE APLICA O HASH NA SENHA
+	public void setSenha(String senha) {
+		
+		
+		this.senha = HashUtil.hash(senha);
+	}
 	
 }

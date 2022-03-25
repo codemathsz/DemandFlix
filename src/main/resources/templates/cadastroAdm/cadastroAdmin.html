@@ -18,11 +18,11 @@
 		</div>
 	
 		<form action="salvarAdmin" class="needs-validation" method="post" novalidate>
-		<input type="hidden" name="id">
+		<input type="hidden" name="id" th:value="${admins?.id}">
 		  <div class="form-row">
 		    <div class="form-group col-md-6">
 		      <label for="inputNome">Nome</label>
-		      <input type="text" name="nome" class="form-control" id="inputNome" placeholder="Nome *">
+		      <input type="text" name="nome" th:value="${admins?.nome}" class="form-control" id="inputNome" placeholder="Nome *">
 		      <div class="invalid-feedback">
 		      	Por Favor coloque um Nome
 		      </div> 
@@ -32,12 +32,12 @@
 		    </div>
 		    <div class="form-group col-md-6">
 		      <label for="inputPassword">Senha</label>
-		      <input type="password" name="senha" class="form-control" id="inputPassword" placeholder="Senha *">
+		      <input type="password" name="senha"  class="form-control" id="inputPassword" placeholder="Senha *">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputEmail">Email</label>
-		    <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email *">
+		    <input type="text" name="email" class="form-control" th:value="${admins?.email}" id="inputEmail" placeholder="Email *">
 		  </div>
 		  
 	  		<button type="submit" class="btn btn-primary">Salvar</button>
