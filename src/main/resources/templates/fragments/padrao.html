@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css_admin/style.css">
+</head>
+<body>
+
+
+	<header th:fragment="cabecalho" class="cabecalho">
+
+		<!--  LOGO -->
+		<img class="cabecalho-img-logo" src="/assets/img/logo-icon-branco.svg"
+			alt="logo da loja, M cars">
+		<nav class="cabecalho-navegacao">
+
+			<div class="bandeiras-linguagem">
+				<a href="#index-eua"><img src="/assets/img/bandeira-eua.svg"
+					alt="bandeira dos estadoa unidos"></a> <a href="#index"><img
+					src="/assets/img/bandeira-br.svg" alt="bandeira do brasil"></a>
+			</div>
+			<!--  FECHANDO DIV, banderias-linguagem -->
+			<a class="cabecalho-navegacao-links" href="/formularioAdmin">Cadastrar</a> 
+			<a class="cabecalho-navegacao-links" href="/listaAdmin/1">Lista</a> 
+			
+
+		</nav>
+		<!--  FECHANDO NAV, cabecalho-navegacao -->
+
+	</header>
+	<!--  FECHANDO HEADER, cabecalho -->
+
+
+	<div th:fragment="nav-lateral" class="nav-lateral"> 
+		<div class="container_admin">
+	   	<div class="row"> 
+	   		<div class="" >
+	
+			 <!-- Sidebar -->
+			    <div class="bg-light" id="sidebar-wrapper">
+	
+	
+			      
+			      <div class="list-group list-group-flush">
+	
+			      	 <span href="#" class="list-group-item ativo">Painél Administrativo</span>
+			      	
+			        <a href="/listaGeneros/1" class="list-group-item list-group-item-action bg-light"><i class="fas fa-user-friends mr-1"></i>Generos</a>
+			        <a href="/listaAdmin/1" class="list-group-item list-group-item-action bg-light"><i class="fas fa-book-reader mr-1"></i>Administradores</a>
+			        <a href="/listaDeFilmes/1" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sitemap mr-1"></i>Filmes</a>
+			        <a href="/formularioAdmin" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sitemap mr-1"></i>Cadastrar Admin</a>
+			        <a href="/cadastroFilmes" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sitemap mr-1"></i>Cadastrar Filme</a>
+			        <a href="/cadastroGenero" class="list-group-item list-group-item-action bg-light"><i class="fas fa-sitemap mr-1"></i>Cadastrar Genero</a>
+			      </div>
+			    </div>
+	
+			</div>
+	
+	
+			<div class="col-lg-10 col-md-9 col-sm-12">
+	
+			 	
+			</div>
+		</div>
+		        
+	</div>
+</div>
+
+	<footer  th:fragment="">
+		2022
+	</footer>
+
+</body>
+</html>

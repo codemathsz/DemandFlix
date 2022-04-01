@@ -26,7 +26,7 @@ public class Administrador {
 	@Column(unique = true,columnDefinition = "VARCHAR(55)")// COLUNA UNICA, VARCHAR COM TAMANHO 55
 	@Email
 	private String email;
-	@NotEmpty
+	@NotEmpty(message = "")
 	private String senha;
 	
 	
@@ -35,6 +35,13 @@ public class Administrador {
 		
 		
 		this.senha = HashUtil.hash(senha);
+	}
+	
+	
+	// MÉTODO PARA SETAR O HASH NA SENHA
+	public void setSenhaComHash(String hash) {
+		
+		
 	}
 	
 }

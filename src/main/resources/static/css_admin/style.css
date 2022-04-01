@@ -1,2 +1,113 @@
 @charset "ISO-8859-1";
+/*  IMPORTS FONTS -- GOOGLE FONTS */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    font-size: 100%;
+   
+}
+
+/*      ESTILIZANDO HEADER*/
+.cabecalho{
+
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 15px !important;
+    background-color: #011826  !important;
+}
+
+.bandeiras-linguagem{
+
+    display: flex !important;
+    gap: 20px !important;
+    padding-right: 15px !important;
+    border-right: 1px solid #00bceb !important;
+
+}
+
+.cabecalho-navegacao{
+
+    display: flex !important;
+    align-items: center !important;
+    width: none !important;
+    height:none !important;
+    color:none !important;
+    gap: 40px !important;
+    background-color: transparent !important;
+}
+
+.cabecalho-navegacao-links{
+
+    color: #00bceb !important;
+    font-weight: lighter !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+.cabecalho-navegacao-links:hover{
+
+    transform: scale(1.1) !important;
+    opacity: .6  !important;
+    font-weight: 900 !important;
+}
+
+.centro{
+	position: absolute !important;
+	top: 30% !important;
+	left: 20% !important;
+}
+
+.centroFilme{
+	position: absolute !important;
+	top: 30em !important;
+	left: 20% !important;
+	
+}
+
+.bottom-zero{
+	
+	position: absolute !important;
+	bottom: 0 !important;
+	left:45%;
+	
+	
+}
+
+.background{
+	
+	background-color: #cdcdcd;
+	opacity: 0.6;
+	padding: 5em
+}
+
+.navegacoa-lateral{
+	
+	width: 100% !important;
+	display: flex !important;
+	justify-content: left !important;
+	align-items: center !important;
+	
+}
+
+.container_admin{
+	
+	width: 100% !important;
+}
+
+.filtro{
+	
+	position: absolute;
+	top: 8em;
+	left: 20%;
+	display: flex !important;
+	justify-content: center !important;
+}

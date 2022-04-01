@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css_admin/style.css">
+</head>
+<body>
+
+
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+
+ 	<nav class="navegacoa-lateral">
+		<div th:replace="fragments/padrao :: nav-lateral"></div>
+	</nav>
+
+	<div class="container background filtro ">
+		<form action="filtar" method="post">
+		  <div class="form-row align-items-center">
+		    <div class="col-auto">
+		      <label class="sr-only" for="inlineFormInput">Filme</label>
+		      <input type="text" class="form-control mb-2" name="nomeFilme" id="inlineFormInput" placeholder="Nome do Filme*">
+		    </div>
+		    <div class="col-auto">
+		      <label class="sr-only" for="inlineFormInputGroup">Genero</label>
+		      <div class="input-group mb-2">
+		        <input type="text" name="genero.nomeGenero" class="form-control" id="inlineFormInputGroup" placeholder="Genero do Filme*">
+		      </div>
+		    </div>
+		    <div class="col-auto">
+		      <label class="sr-only" for="inlineFormInputGroup">Diretor</label>
+		      <div class="input-group mb-2">
+		        <input type="text"  name="diretor" class="form-control" id="inlineFormInputGroup" placeholder="Diretor do Filme*">
+		      </div>
+		    </div>
+		    <div class="col-auto">
+		      <button type="submit" class="btn btn-primary mb-2">Filtrar</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+
+
+	<div class="container centroFilme background">
+		
+		<!--  IMBUTINDO HTML -->
+		<!--  replace ele subistutui a div atual pela div que estou chamando e o insert coloca a div dentro da div -->
+		<div th:replace="fragments/mensagem">
+		</div>
+	
+		<form action="salvar" class="needs-validation" method="post" novalidate>
+		
+		<input type="hidden" name="idFilme" th:value="${filmes?.idFilme}" >
+		  <div class="form-row">
+		    <div class="form-group col-md-6">
+		    
+		      <label for="inputNome">Nome do Filme</label>
+		      <input type="text" name="nomeFilme" th:value="${filmes?.nomeFilme}" class="form-control" id="inputNome" placeholder="Nome do filme *" required="required">
+		 
+		      
+		    </div>
+		    
+		    <div class="form-group col-md-6">
+		    
+		    
+		      <label for="inputPassword">Gênero</label>
+		      <select class="select2 form-control" id="idSelect2" name="genero.nomeGenero"   >
+		      	
+			        <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g.nomeGenero}">
+			        
+		  		</select>
+
+		    </div>
+		    
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Diretor</label>
+		    <input type="text" name="diretor" th:value="${filmes?.diretor}" class="form-control" id="inputEmail" placeholder="Diretor *" required="required">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Elenco</label>
+		    <input type="text" name="elenco" th:value="${filmes?.elenco}" class="form-control"  id="inputEmail" placeholder="Elenco *">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Ano de Gravação</label>
+		    <input type="text" name="anoGravacao" th:value="${filmes?.anoGravacao}" class="form-control" id="inputEmail" placeholder="Ano gravação *" required="required">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Faixa Etaria</label>
+		    <input type="text" name="faixaIdade" th:value="${filmes?.faixaIdade}"  class="form-control"  id="inputEmail" placeholder="faixa etária *" required="required">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Descrição</label>
+		    <textarea rows="4" maxlength="3500" name="descricao" th:value="${filmes?.descricao}" class="form-control"  id="inputEmail" placeholder="Descrição do filme... *" ></textarea>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputEmail">Palavras-Chave</label>
+		    <textarea rows="2" maxlength="3500" th:value="${filmes?.palavraChave}" name="palavraChave" class="form-control"  id="inputEmail" placeholder="Palavras-Chave... *" ></textarea>
+		  </div>
+		  
+		  
+	  		<button type="submit" class="btn btn-primary">Salvar</button>
+		</form>
+	</div>
+	
+
+</body>
+</html>

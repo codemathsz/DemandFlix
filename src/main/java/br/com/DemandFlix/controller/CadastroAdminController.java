@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.DemandFlix.model.Administrador;
 import br.com.DemandFlix.repository.AdministradorRepository;
+import br.com.DemandFlix.util.HashUtil;
 
 
 // ****** BindingResult ******** 
@@ -65,6 +66,36 @@ public class CadastroAdminController {
 			return "redirect:formularioAdmin";
 		}
 		
+		// VARIAVEL PARA DESCOBRIR ALTERAÇÃO OU INSERÇÃO
+		boolean alteracao = administrador.getId() != null ? true : false;
+		
+		
+		// VERIFICA SE A SENHA ESTÁ VAZIA, obs*  A SENHA NUNCA ESTARÁ VAZIA POR CAUSA DO HASH, VAMOS VERIFICAR SE A PESSOA INSERIU ALGUMA SENHA NO CADASTRO
+		if(administrador.getSenha().equals(HashUtil.hash(""))) {
+			
+			//	 SE NÃO FOR ALTERAÇÃO, INSERÇÃO
+			if(!alteracao) {
+			
+				// RETIRAR A PARTE ANTES DO @ DO EMAIL
+				String parteEmail = administrador.getEmail().substring(0, administrador.getEmail().indexOf("@"));
+				
+				// SETTAR A PARTE NA SENHA DO ADMIN
+				administrador.setSenha(parteEmail);
+			
+			}else {
+				
+				// SE PEGASSEMOS DIRETO A SENHA E "SETARMOS" DIRETO administrador.setSenha() IRÁ GERAR OUTRO HASH SOBRE A SENHA E VAMOS PERDER DE VEZ A SENHA, ENTÃO VAMOS CRIAR UM MÉTODO PARA SETAR A SENHA SEM PASSAR PELO HASH
+				
+				// BUSCAR A SENHA ATUAL NO BANCO PELO HASH
+				String hash = repository.findById(administrador.getId()).get().getSenha();
+				
+				
+				// "SETAR" O HASH NA SENHA
+				administrador.setSenhaComHash(hash);
+			}
+		}
+		
+		
 		try {
 			
 			// SALVA NO BD A ENTIDADE
@@ -77,9 +108,6 @@ public class CadastroAdminController {
 			// ADD UMA MENSAGEM DE ERRO
 			attr.addFlashAttribute("msgErro","Ocorreu um erro ao cadastrar: "+e.getMessage());
 		}
-		
-		
-		
 		
 		return "redirect:formularioAdmin";
 	}
