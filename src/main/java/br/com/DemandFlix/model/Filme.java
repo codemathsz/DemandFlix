@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 
 import lombok.Data;
 
-
-
 @Entity
 @Data
 public class Filme {

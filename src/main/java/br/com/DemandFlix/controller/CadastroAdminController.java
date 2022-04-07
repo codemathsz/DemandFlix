@@ -20,6 +20,7 @@ import br.com.DemandFlix.repository.AdministradorRepository;
 import br.com.DemandFlix.util.HashUtil;
 
 
+
 // ****** BindingResult ******** 
 //BindingResult contém o resultado de uma validação e associação e contém erros que podem ter ocorrido. O BindingResult deve vir logo após o objeto de modelo que é validado ou o Spring falha ao validar o objeto e lança uma exceção.
 
@@ -30,10 +31,46 @@ public class CadastroAdminController {
 	@Autowired
 	AdministradorRepository repository;
 	
-	@RequestMapping("formularioAdmin")
-    public String formAdmin() {
+	
+	@RequestMapping("formAdmin")
+	public String form() {
+		 return "dashboard/admin/formulario";
+	}
+	
+	@RequestMapping("listaAdmin/{page}")
+    public String admins(Model model,@PathVariable("page") int page) {
         
-		return "cadastroAdm/cadastroAdmin";	
+		// OBTER O REGISTRO DE ACORDO CO O NUMERO DE PAGINAS
+
+		// CRIA UM PAGEABLE INFORMANDO OS PARÂMETROS DA PÁGINA   | -1 O MENOS UM É POR QUE COMEÇA A CONTAR DO ZERO
+		PageRequest pageable = PageRequest.of(page-1, 6, Sort.by(Sort.Direction.ASC, "nome"));//	 (Sort.Direction.ASC, "nome") ORDENANDO PELO NOME
+		
+		// CRIAR UM APGE DE ADM, ATRA´VES DOS PARÂMETROS PASSADOS AO REPOSITORY
+		Page<Administrador> pagina = repository.findAll(pageable);// 	 ESSA LINHA JÁ GERA UM SELECT COM LIMITE
+		
+		// ADD A MODEL A LISTA COM OS ADMS
+		model.addAttribute("admins",pagina.getContent());// COLOCAMOS NA MODEL OS ADM, SOMETE DA PÁGINA ATUAL, A PÁGINA QUE CHAMOU
+		
+		// VAMOS CRIAR UM VETOR DE INTEIROS E VAMOS POPULAR
+		
+		int totalPages = pagina.getTotalPages(); // VARIÁVEL PARA O TOTAL DE PÁGINAS
+		
+		// CRIA UM LIST  DE INTEIROS PARA ARMEZENA OS NºS DAS PÁGINAS
+		List<Integer> numPaginas = new ArrayList<Integer>();
+		
+		// PREENCHER O LIST COM AS PÁGIAS
+		for(int i = 1; i <= totalPages; i++) {
+			numPaginas.add(i);
+		}
+		
+		// ADD A PÁGINA AO LIST
+		model.addAttribute("numPaginas",numPaginas);
+		model.addAttribute("totalPaginas", totalPages);
+		model.addAttribute("paginaAtual", page);
+		
+		// RETORNA PARA O HTML DA LISTA
+		
+		return "dashboard/admin/listaAdmin";	
     }
 	
 	
@@ -114,42 +151,6 @@ public class CadastroAdminController {
 	
 	
 	
-						// /{page} PAGINAÇÃO, NA REQUEST , TEM QUE FALAR O NUMERO DA PAGINA QUE QUEREMOS ACESAR
-	@RequestMapping("listaAdmin/{page}")
-	public String listaAdmin(Model model,@PathVariable("page") int page) {//	 int page, NÃO VINCULA DIRETO COM O PAGE DO REQUEST, COLOCANDO O @PathVariable ELE VINCULAR E O NOME DO INT PODE SER QLQR UM	
-		
-		// OBTER O REGISTRO DE ACORDO CO O NUMERO DE PAGINAS
-		
-		// CRIA UM PAGEABLE INFORMANDO OS PARÂMETROS DA PÁGINA   | -1 O MENOS UM É POR QUE COMEÇA A CONTAR DO ZERO
-		PageRequest pageable = PageRequest.of(page-1, 6, Sort.by(Sort.Direction.ASC, "nome"));//	 (Sort.Direction.ASC, "nome") ORDENANDO PELO NOME
-		
-		// CRIAR UM APGE DE ADM, ATRA´VES DOS PARÂMETROS PASSADOS AO REPOSITORY
-		Page<Administrador> pagina = repository.findAll(pageable);// 	 ESSA LINHA JÁ GERA UM SELECT COM LIMITE
-		
-		// ADD A MODEL A LISTA COM OS ADMS
-		model.addAttribute("admins",pagina.getContent());// COLOCAMOS NA MODEL OS ADM, SOMETE DA PÁGINA ATUAL, A PÁGINA QUE CHAMOU
-		
-		// VAMOS CRIAR UM VETOR DE INTEIROS E VAMOS POPULAR
-		
-		int totalPages = pagina.getTotalPages(); // VARIÁVEL PARA O TOTAL DE PÁGINAS
-		
-		// CRIA UM LIST  DE INTEIROS PARA ARMEZENA OS NºS DAS PÁGINAS
-		List<Integer> numPaginas = new ArrayList<Integer>();
-		
-		// PREENCHER O LIST COM AS PÁGIAS
-		for(int i = 1; i <= totalPages; i++) {
-			numPaginas.add(i);
-		}
-		
-		// ADD A PÁGINA AO LIST
-					model.addAttribute("numPaginas",numPaginas);
-					model.addAttribute("totalPaginas", totalPages);
-					model.addAttribute("paginaAtual", page);
-		
-		// RETORNA PARA O HTML DA LISTA
-		return "listaAdm/lista";
-	}
-	
 	
 	@RequestMapping("excluirAdministrador")
 	public String excluirAdm(Long id) {
@@ -169,6 +170,21 @@ public class CadastroAdminController {
 		
 		return "forward:formularioAdmin";
 		
+	}
+	
+	
+//	**** BUSCAR O CLIENTE PELO NOME
+	@RequestMapping("buscarPorNome")
+	public String buscarPorNome(String nome, Model model, RedirectAttributes att) {
+		List<Administrador> administradores = repository.buscarPorNome(nome);
+		
+		//model.addAttribute("clietes", repository.buscarPorNome(nome));
+		if(administradores.size() == 0) {
+			att.addFlashAttribute("msgNome", "Cliente Não encontrado");
+			return "redirect:buscarCliente";
+		}
+		model.addAttribute("administradores", administradores);
+		return "lista";
 	}
 }
 

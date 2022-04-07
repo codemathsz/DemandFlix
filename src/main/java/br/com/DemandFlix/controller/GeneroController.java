@@ -26,7 +26,7 @@ public class GeneroController {
 	@RequestMapping("cadastroGenero")
 	public String cadastroGenero() {
 		
-		return "filmes/cadastroGenero/formularioGenero";
+		return "dashboard/filme/genero/formularioGenero";
 	}
 	
 	
@@ -74,7 +74,7 @@ public class GeneroController {
 				model.addAttribute("totalPaginas", totalPages);
 				model.addAttribute("paginaAtual", pagesGenero);
 		
-		return"filmes/listaFilmes/listaGenero";
+		return"dashboard/filme/genero/listaGenero";
 	}
 	
 	

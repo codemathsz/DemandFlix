@@ -21,6 +21,7 @@ import br.com.DemandFlix.model.Genero;
 import br.com.DemandFlix.repository.FilmeRepository;
 import br.com.DemandFlix.repository.GeneroRepository;
 
+
 @Controller
 public class FilmesController {
 
@@ -30,14 +31,24 @@ public class FilmesController {
 	@Autowired
 	private GeneroRepository repositoryGenero;
 	
+	
+	
+	
+	
+	
 	@RequestMapping("cadastroFilmes")
 	public String cadastraFilme(Model model) {
 		
-		List<Genero> genero = (List<Genero>) repositoryGenero.findAll();
-		model.addAttribute("genero", genero);
+		model.addAttribute("genero", repositoryGenero.findAllByOrderByNomeGeneroAsc());
 		
-		return "filmes/cadastroFilmes/formulario";
+		return "dashboard/filme/formulario";
 	}
+	
+//	************************** FECHANDO O MÉTODO QUE LEVA PARA O FORMULÁRIO *******************************************
+	
+	
+	
+	
 	
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
@@ -49,6 +60,13 @@ public class FilmesController {
 		
 		return "redirect:cadastroFilmes";
 	}
+//	************************** FECHANDO O MÉTODO SALVA UM NOVO FILME  *******************************************	
+	
+
+	
+	
+	
+	
 	
 	@RequestMapping("listaDeFilmes/{pagesFilme}")
 	public String listarFilmes(Model model, @PathVariable("pagesFilme") int pagesFilme) {
@@ -75,8 +93,7 @@ public class FilmesController {
 			numPaginas.add(i);
 		}
 		
-		
-		
+
 
 				
 		// ADD A PÁGINA AO LIST
@@ -85,8 +102,15 @@ public class FilmesController {
 		model.addAttribute("paginaAtual", pagesFilme);
 		
 		
-		return "filmes/listaFilmes/lista";
+		return "dashboard/filme/listaFilme";
 	}
+//	************************** FECHANDO O MÉTODO LISTA UM FILME  *******************************************	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("alterarFilme")
 	public String alterarFilme(Long id, Model model) {
@@ -96,6 +120,11 @@ public class FilmesController {
 		
 		return "forward:cadastroFilmes";
 	}
+//	************************** FECHANDO O MÉTODO QUE ALTERA UM FILME  *******************************************	
+	
+	
+	
+	
 	
 	
 	@RequestMapping("deletarFilme")
@@ -105,19 +134,11 @@ public class FilmesController {
 		
 		return "forward:listaDeFilmes/1";
 	}
+//	************************** FECHANDO O MÉTODO DELETA  FILME  *******************************************	
 	
 	
 	
-	@RequestMapping("filtar")
-	private String filtar(String nome, String diretor, Model model, RedirectAttributes attr) {
-		
-		List<Filme> filme = repositoryFilme.filtrarFilme(nome,diretor);
-		
-		System.out.println("Nome filme:"+nome+"\nDiretor: "+diretor);
-		
-		model.addAttribute("filmes", filme);
-		
-		return "listaDeFilmes/1";
-		
-	}
+	
+	
+	
 }

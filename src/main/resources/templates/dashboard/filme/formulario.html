@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive DashBoard using HTML, CSS and Js</title>
+    <!--  MATERIAL ICONS CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <!--  CSS -->
+    <link rel="stylesheet" href="/dashboardCSS/styleLista.css">
+</head>
+<body> 
+    
+        <div class="container">
+
+
+            <aside>
+                <div class="top">
+
+                    <div class="logo">
+                        <img src="images/logo.png" >
+                        <h2>FI<span class="danger">lmes</span></h2>
+                    </div>
+
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">close</span>
+                    </div>
+
+                </div>
+
+                <div class="sidebar">
+
+                   <a href="/dashboard" >
+                        <span class="material-icons-sharp">grid_view</span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <a href="/listaAdmin/1" >
+                        <span class="material-icons-sharp">person_outline</span>
+                        <h3>Administradores</h3>
+                    </a>
+                    <a href="/listaDeFilmes/1" class="active">
+                        <span class="material-icons-sharp">receipt_long</span>
+                        <h3>Filmes</h3>
+                    </a>
+                    <a href="/listaGeneros/1">
+                        <span class="material-icons-sharp">insights</span>
+                        <h3>Generos</h3>
+                    </a>
+                    <a href="/formAdmin">
+                        <span class="material-icons-sharp">mail_outline</span>
+                        <h3>Cadastrar Admin</h3>
+                    </a>
+                    <a href="/cadastroFilmes">
+                        <span class="material-icons-sharp">inventory</span>
+                        <h3>Cadastrar Filmes</h3>
+                    </a>
+                    <a href="/cadastroGenero">
+                        <span class="material-icons-sharp">report_gmailerrorred</span>
+                        <h3>Cadastrar Genero</h3>
+                    </a>
+                    <a href="#">
+                        <span class="material-icons-sharp">settings</span>
+                        <h3>Settings</h3>
+                        <span class="message-count">26</span>
+                    </a>
+                    <a href="#">
+                        <span class="material-icons-sharp">add</span>
+                        <h3>Add Product</h3>
+                    </a>
+                    <a href="#">
+                        <span class="material-icons-sharp">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                </div>
+            </aside>
+
+            <main>
+                <div th:replace="fragments/mensagem"></div>
+				<form action="salvar" method="post">
+				
+					<div></div>
+				
+				</form>
+			
+            </main>
+          
+        </div>
+         
+
+
+        <script src="./orders.js"></script>
+        <script src="./index.js"></script>
+        

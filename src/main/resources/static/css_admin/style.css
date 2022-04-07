@@ -62,13 +62,14 @@ body{
 
 .centro{
 	position: absolute !important;
-	top: 30% !important;
+	top: 40% !important;
 	left: 20% !important;
+	text-align: justify !important;
 }
 
 .centroFilme{
 	position: absolute !important;
-	top: 30em !important;
+	top: 10em !important;
 	left: 20% !important;
 	
 }

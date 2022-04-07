@@ -7,11 +7,14 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import br.com.DemandFlix.model.Filme;
+import br.com.DemandFlix.model.Genero;
 
 public interface FilmeRepository extends PagingAndSortingRepository<Filme, Long>{
 	
-	@Query("SELECT f FROM Filme f WHERE f.nomeFilme LIKE %:nome%  OR f.diretor LIKE %:diretor%")
-	public List<Filme> filtrarFilme(@Param("nome") String nome, @Param("diretor") String diretor);
+	@Query("SELECT f FROM Filme f WHERE f.nomeFilme LIKE %:nome% ")
+	public List<Filme> filtrarFilme(@Param("nome") String nome);
 
+	
+	
 }
  
