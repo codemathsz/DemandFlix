@@ -209,7 +209,7 @@ aside .sidebar a{
 
     display: flex;
     color: var(--color-info-dark);
-    margin:  1rem 2rem;
+    margin:  1rem 0rem;
     gap:  1rem;
     align-items: center;
     position: relative;

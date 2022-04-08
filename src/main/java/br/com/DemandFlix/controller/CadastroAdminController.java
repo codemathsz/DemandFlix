@@ -34,7 +34,7 @@ public class CadastroAdminController {
 	
 	@RequestMapping("formAdmin")
 	public String form() {
-		 return "dashboard/admin/formulario";
+		 return "dashboard/admin/cadastroAdmin";
 	}
 	
 	@RequestMapping("listaAdmin/{page}")
@@ -176,15 +176,16 @@ public class CadastroAdminController {
 //	**** BUSCAR O CLIENTE PELO NOME
 	@RequestMapping("buscarPorNome")
 	public String buscarPorNome(String nome, Model model, RedirectAttributes att) {
-		List<Administrador> administradores = repository.buscarPorNome(nome);
+//		List<Administrador> administradores = repository.buscarPorNome(nome);
 		
-		//model.addAttribute("clietes", repository.buscarPorNome(nome));
-		if(administradores.size() == 0) {
-			att.addFlashAttribute("msgNome", "Cliente Não encontrado");
-			return "redirect:buscarCliente";
-		}
-		model.addAttribute("administradores", administradores);
-		return "lista";
+		
+//		if(administradores.size() == 0) {
+//			att.addFlashAttribute("msgNome", "Admin Não encontrado");
+//			return "redirect:";
+//		}
+		
+		model.addAttribute("admins", repository.buscarPorNome(nome));
+		return "dashboard/admin/listaAdmin";
 	}
 }
 

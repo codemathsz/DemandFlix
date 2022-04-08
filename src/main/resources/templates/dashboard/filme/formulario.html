@@ -8,10 +8,13 @@
     <!--  MATERIAL ICONS CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <!--  CSS -->
-    <link rel="stylesheet" href="/dashboardCSS/styleLista.css">
+    <link rel="stylesheet" href="/dashboardCSS/styleForms.css">
 </head>
 <body> 
-    
+    	
+    	<div th:replace="fragments/padrao :: nav">
+    	</div>
+    	
         <div class="container">
 
 
@@ -31,7 +34,7 @@
 
                 <div class="sidebar">
 
-                   <a href="/dashboard" >
+                    <a href="/dashboard">
                         <span class="material-icons-sharp">grid_view</span>
                         <h3>Dashboard</h3>
                     </a>
@@ -39,7 +42,7 @@
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Administradores</h3>
                     </a>
-                    <a href="/listaDeFilmes/1" class="active">
+                    <a href="/listaDeFilmes/1">
                         <span class="material-icons-sharp">receipt_long</span>
                         <h3>Filmes</h3>
                     </a>
@@ -51,7 +54,7 @@
                         <span class="material-icons-sharp">mail_outline</span>
                         <h3>Cadastrar Admin</h3>
                     </a>
-                    <a href="/cadastroFilmes">
+                    <a href="/cadastroFilmes" class="active">
                         <span class="material-icons-sharp">inventory</span>
                         <h3>Cadastrar Filmes</h3>
                     </a>
@@ -72,17 +75,77 @@
                         <span class="material-icons-sharp">logout</span>
                         <h3>Logout</h3>
                     </a>
+
                 </div>
             </aside>
 
             <main>
-                <div th:replace="fragments/mensagem"></div>
-				<form action="salvar" method="post">
-				
-					<div></div>
-				
-				</form>
-			
+                <form action="salvar" method="post" enctype="multipart/form-data"><!--  enctype="multipart/form-data", PARA FAZER UM UPLOAD ATRAVÉS DO FORM, E SÓ PODE SER USADO SE FOR POST -->
+                    <input type="hidden" name="idFilme" th:value="${filmes?.idFilme}">
+                    <div class="center">
+                        <div class="group-form">
+
+                            <label for="inputNome">Nome do Filme</label>
+                            <input type="text" name="nomeFilme" th:value="${filmes?.nomeFilme}" class="form-input" id="inputNome" placeholder="Nome do filme *" required="required">
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputPassword">Gênero</label> <br>
+                            <select class="select2 form-control" id="idSelect2" name="genero.idGenero">
+
+							    <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g.idGenero}">
+
+						    </select>
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputEmail">Diretor</label> 
+                            <input type="text" name="diretor" th:value="${filmes?.diretor}" class="form-control" id="inputEmail" placeholder="Diretor *" required="required">
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputEmail">Elenco</label> 
+                            <input type="text" name="elenco" th:value="${filmes?.elenco}" class="form-control" id="inputEmail" placeholder="Elenco *">
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputEmail">Ano de Gravação</label>
+                             <input type="text" name="anoGravacao" th:value="${filmes?.anoGravacao}" class="form-control" id="inputEmail" placeholder="Ano gravação *" required="required">
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputEmail">Faixa Etaria</label> 
+                            <input type="text" name="faixaIdade" th:value="${filmes?.faixaIdade}" class="form-control" id="inputEmail" placeholder="faixa etária *" required="required">
+
+                        </div>
+
+                        <div class="group-form">
+
+                            <label for="inputEmail">Descrição</label><br>   
+					        <textarea rows="4" cols="100" maxlength="3500" name="descricao"th:value="${filmes?.descricao}" class="form-control" id="inputEmail" placeholder="Descrição do filme... *"></textarea>
+
+                        </div>
+                        
+                        <div class="group-form">
+
+                            <label for="inputEmail">FILE:</label><br>   
+					       	<input type="file" name="fileFotos" multiple="multiple" accept="image/*">
+
+                        </div><br><br>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
             </main>
           
         </div>
@@ -92,3 +155,5 @@
         <script src="./orders.js"></script>
         <script src="./index.js"></script>
         
+</body>
+</html>

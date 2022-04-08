@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -25,8 +25,9 @@ public class Filme {
 	private String faixaIdade;
 	private String elenco;
 	private String palavraChave;
+	private String foto;
 	@Column(columnDefinition = "text")
 	private String descricao;
-	@OneToMany // MUITOS PARA MUITOS, UM FILME PODE TER MAIS DE UM GENERO E UM GENERO PODE TER MAIS DE UM FILME
+	@ManyToMany //	UM FILME TEM MUITOS GENEROS
 	private List<Genero> genero;
 }

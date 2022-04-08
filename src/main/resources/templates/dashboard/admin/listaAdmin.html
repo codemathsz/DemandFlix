@@ -12,10 +12,13 @@
 </head>
 <body> 
     
+    	
+    
         <div class="container">
-
+			
 
             <aside>
+            
                 <div class="top">
 
                     <div class="logo">
@@ -77,7 +80,18 @@
             </aside>
 
             <main>
+            
+           
                 <div class="recent-orders">
+
+					<form action="/buscarPorNome" method="get">
+						<div>
+							<label>Procurar Admin</label>
+							<input type="text" name="nome">
+						</div>
+						
+						<button type="submit">Procurar</button>
+					</form>
 
                     <h2>Recent Orders</h2>
                     <table>
@@ -109,10 +123,10 @@
                     
                 </div>
             </main>
-          
+          	
         </div>
          
-
+	
 
         <script src="./orders.js"></script>
         <script src="./index.js"></script>

@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.DemandFlix.model.Filme;
@@ -33,9 +35,6 @@ public class FilmesController {
 	
 	
 	
-	
-	
-	
 	@RequestMapping("cadastroFilmes")
 	public String cadastraFilme(Model model) {
 		
@@ -52,9 +51,10 @@ public class FilmesController {
 	
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
-	public String salvarFilme(@Valid Filme filme, Model model) {
+	public String salvarFilme(@Valid Filme filme, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		
-		
+		//		 FAZER OS VETORES DO GENERO
+		System.out.println(fileFotos.length);
 		
 		repositoryFilme.save(filme);
 		
