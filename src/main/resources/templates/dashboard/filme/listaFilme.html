@@ -93,6 +93,7 @@
 								<th>Elenco</th>
 								<th>Faixa Etária</th>
 								<th>Descrição</th>
+							<!-- 	<th>Imagens</th> -->
 								<th>Alterar</th>
 								<th>Excluir</th>
                             </tr>
@@ -109,6 +110,7 @@
 							<td th:text="${film.elenco}" />
 							<td th:text="${film.faixaIdade}" />
 							<td th:text="${film.descricao}" />
+							<!-- <td /> -->
 							<td><a th:href="@{/alterarFilme(id=${film.idFilme})}">Alterar</a></td>
 							<td><a th:href="@{/deletarFilme(id=${film.idFilme})}">Excluir</a></td>
                             

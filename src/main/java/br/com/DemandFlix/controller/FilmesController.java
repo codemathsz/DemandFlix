@@ -1,6 +1,8 @@
 package br.com.DemandFlix.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.com.DemandFlix.model.Filme;
-import br.com.DemandFlix.model.Genero;
 import br.com.DemandFlix.repository.FilmeRepository;
 import br.com.DemandFlix.repository.GeneroRepository;
+import br.com.DemandFlix.util.FireBaseUtil;
 
 
 @Controller
@@ -33,7 +33,8 @@ public class FilmesController {
 	@Autowired
 	private GeneroRepository repositoryGenero;
 	
-	
+	@Autowired
+	private FireBaseUtil fireUtil;
 	
 	@RequestMapping("cadastroFilmes")
 	public String cadastraFilme(Model model) {
@@ -48,14 +49,41 @@ public class FilmesController {
 	
 	
 	
-	
+	 
 	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvarFilme(@Valid Filme filme, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		
+		// STRING PARA ARMAZENAR AS URL's
+		String fotos = "";
+		
+		// FOR PARA PASSAR POR CADA MultipartFile QUE EU TIVER
+		for(MultipartFile arquivo : fileFotos) {
+			
+			// VERIFICANDO SE O ARQUIVO ESTÁ FAZIO, EXISTIR ELE SEMPRE VAI EXISTIR
+			if(arquivo.getOriginalFilename().isEmpty()) {
+				
+				// COLOCAR UM CONTINUE PARA IR PARA O PROXIMO ARQUIVO
+				continue;
+			}
+			
+			try {
+				
+				// FAZ O UPLOAD E GUARDA A URL NA STRING FOTOS
+				fotos += fireUtil.upload(arquivo)+";";
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		}
+		
 		//		 FAZER OS VETORES DO GENERO
 		System.out.println(fileFotos.length);
 		
+		// GUARDAR NA VARIAVEL RESTAURANTE AS FOTOS
+		filme.setFoto(fotos);
+		// SALVAR NO BD
 		repositoryFilme.save(filme);
 		
 		return "redirect:cadastroFilmes";
@@ -69,13 +97,14 @@ public class FilmesController {
 	
 	
 	@RequestMapping("listaDeFilmes/{pagesFilme}")
-	public String listarFilmes(Model model, @PathVariable("pagesFilme") int pagesFilme) {
+	public String listarFilmes(Model model, @PathVariable("pagesFilme") int pagesFilme, Filme fotos) {
 		
 		// CRIA UM PAGEABLE INFORMANDO OS PARÂMETROS DA PÁGINA   | -1 O MENOS UM É POR QUE COMEÇA A CONTAR DO ZERO
 		PageRequest pageable = PageRequest.of(pagesFilme-1, 15, Sort.by(Sort.Direction.ASC, "nomeFilme"));//	 (Sort.Direction.ASC, "nome") ORDENANDO PELO NOME
 		
 		// CRIAR UM APGE DE FILMES, ATRAVES DOS PARÂMETROS PASSADOS AO REPOSITORY
 		Page<Filme> pagina = repositoryFilme.findAll(pageable);// 	 ESSA LINHA JÁ GERA UM SELECT COM LIMITE
+		
 		
 		// ADD A MODEL A LISTA COM OS FILMES
 		model.addAttribute("filmes",pagina.getContent());// COLOCAMOS NA MODEL OS FILMES, SOMETE DA PÁGINA ATUAL, A PÁGINA QUE CHAMOU
@@ -137,7 +166,28 @@ public class FilmesController {
 //	************************** FECHANDO O MÉTODO DELETA  FILME  *******************************************	
 	
 	
-	
+	@RequestMapping("excluirFotos")
+	public String excluirFoto(Long idFilm, int numFoto, Model model) {
+		
+		// BUSCAR O FILME NO BANCO
+		Filme film = repositoryFilme.findById(idFilm).get();
+		
+		// BUSCA A URL NO BD
+		String urlFoto = film.verFotos()[numFoto];
+		
+		// DELETAR A FOTO
+		fireUtil.deletarArq(urlFoto);
+		
+		// REMOVER A URL DO ATRIBUTO FOTO
+		film.setFoto(film.getFoto().replace(urlFoto+";","" ));// 	replace(urlFoto+";","" ) ARRACANDO AS FOTOS
+		
+		
+		repositoryFilme.save(film);
+		
+		model.addAttribute("filmes", film);
+		
+		return "forward:cadastroFilmes";
+	}
 	
 	
 	

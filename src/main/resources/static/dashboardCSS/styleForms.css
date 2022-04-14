@@ -137,6 +137,23 @@ small{
     font-size:  0.75rem;
 }
 
+
+.listaImgs{
+	
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	
+	
+}
+
+.linhaImg img{
+	
+	width: 100px !important;
+	height: 100px !important;
+	margin: .9em;
+}
+
 .profile-photo{
 
     width:  2.8rem;

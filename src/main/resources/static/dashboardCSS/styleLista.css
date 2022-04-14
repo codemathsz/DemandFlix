@@ -80,6 +80,7 @@ body{
     grid-template-columns:  14rem auto 0;
 }
 
+
 a{
 
     color: var(--color-dark);

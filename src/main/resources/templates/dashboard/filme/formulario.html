@@ -95,7 +95,7 @@
                             <label for="inputPassword">Gênero</label> <br>
                             <select class="select2 form-control" id="idSelect2" name="genero.idGenero">
 
-							    <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g.idGenero}">
+							    <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g?.idGenero}">
 
 						    </select>
 
@@ -132,7 +132,7 @@
                         <div class="group-form">
 
                             <label for="inputEmail">Descrição</label><br>   
-					        <textarea rows="4" cols="100" maxlength="3500" name="descricao"th:value="${filmes?.descricao}" class="form-control" id="inputEmail" placeholder="Descrição do filme... *"></textarea>
+					        <textarea rows="4" cols="20" maxlength="3500" name="descricao"th:value="${filmes?.descricao}" class="form-control" id="inputEmail" placeholder="Descrição do filme... *"></textarea>
 
                         </div>
                         
@@ -141,6 +141,21 @@
                             <label for="inputEmail">FILE:</label><br>   
 					       	<input type="file" name="fileFotos" multiple="multiple" accept="image/*">
 
+                        </div><br><br>
+                        
+                        <div th:if="${filmes?.foto?.length > 0}" class="group-form">
+                        	<h2>Fotos já cadastradas</h2>
+                        	<div>
+								<ul class="listaImgs">
+									<li class="linhaImg" th:each="f : ${filmes?.verFotos()}">
+										<a th:href="${f}" target="blank"><img  th:src="${f}"></a>
+										<a th:href="@{/excluirFotos(idFilm=${filmes.idFilme})}">Excluir</a>
+									</li>
+								</ul>
+							</div>
+                        	
+                        
+                        	
                         </div><br><br>
                     </div>
 

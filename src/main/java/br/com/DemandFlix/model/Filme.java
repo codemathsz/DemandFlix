@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.DemandFlix.repository.FilmeRepository;
 import lombok.Data;
 
 @Entity
@@ -30,4 +33,12 @@ public class Filme {
 	private String descricao;
 	@ManyToMany //	UM FILME TEM MUITOS GENEROS
 	private List<Genero> genero;
+	
+	// METODO QUE RETORNA AS FOTOS NA FORMA DE UM VETOR STRING
+	public String[] verFotos() {
+		
+		return foto.split(";");
+	}
+	
+	
 }
