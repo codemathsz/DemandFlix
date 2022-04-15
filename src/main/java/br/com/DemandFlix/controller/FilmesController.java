@@ -55,7 +55,7 @@ public class FilmesController {
 	public String salvarFilme(@Valid Filme filme, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		
 		// STRING PARA ARMAZENAR AS URL's
-		String fotos = "";
+		String fotos = filme.getFoto();
 		
 		// FOR PARA PASSAR POR CADA MultipartFile QUE EU TIVER
 		for(MultipartFile arquivo : fileFotos) {
@@ -159,7 +159,15 @@ public class FilmesController {
 	@RequestMapping("deletarFilme")
 	public String deletarFilme(Long id) {
 		
-		repositoryFilme.deleteById(id);
+		Filme filme = repositoryFilme.findById(id).get();
+		
+		if(filme.getFoto().length() > 0) {
+			for(String foto : filme.verFotos()) {
+				fireUtil.deletarArq(foto);
+			}
+		}
+		
+		repositoryFilme.delete(filme);
 		
 		return "forward:listaDeFilmes/1";
 	}

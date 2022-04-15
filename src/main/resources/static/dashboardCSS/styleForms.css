@@ -138,21 +138,9 @@ small{
 }
 
 
-.listaImgs{
-	
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	
-	
-}
 
-.linhaImg img{
-	
-	width: 100px !important;
-	height: 100px !important;
-	margin: .9em;
-}
+
+
 
 .profile-photo{
 
@@ -671,3 +659,40 @@ button{
 
     display: none;
 }
+
+
+.listaImgs{
+	
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	text-align: center;
+	
+}
+
+.linhaImg img{
+	
+	width: 100px !important;
+	height: 100px !important;
+	margin: .9em;
+}
+
+.link-excluir{
+	
+	font-size: 1em;
+	color: purple;
+	animation: animacaoExcluir 400ms ease forwards;
+}
+
+
+ @keyframes animacaoExcluir {
+        
+       50%{
+       
+       	transform: scale(1.2);
+       }
+		
+       100%{
+       transform: scale(1);
+       }
+    }

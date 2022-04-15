@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.checkerframework.checker.units.qual.UnitsRelations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.DemandFlix.repository.FilmeRepository;

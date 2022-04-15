@@ -12,8 +12,6 @@
 </head>
 <body> 
     	
-    	<div th:replace="fragments/padrao :: nav">
-    	</div>
     	
         <div class="container">
 
@@ -82,6 +80,8 @@
             <main>
                 <form action="salvar" method="post" enctype="multipart/form-data"><!--  enctype="multipart/form-data", PARA FAZER UM UPLOAD ATRAVÉS DO FORM, E SÓ PODE SER USADO SE FOR POST -->
                     <input type="hidden" name="idFilme" th:value="${filmes?.idFilme}">
+                    <input type="hidden" name="foto" th:value="${filmes?.foto}">
+                    
                     <div class="center">
                         <div class="group-form">
 
@@ -95,7 +95,7 @@
                             <label for="inputPassword">Gênero</label> <br>
                             <select class="select2 form-control" id="idSelect2" name="genero.idGenero">
 
-							    <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g?.idGenero}">
+							    <option th:each="g : ${genero}" th:text="${g.nomeGenero}" th:value="${g?.idGenero}" th:selected="${g.nomeGenero == filme?.genero?.nomeGenero}"/>
 
 						    </select>
 
@@ -147,9 +147,9 @@
                         	<h2>Fotos já cadastradas</h2>
                         	<div>
 								<ul class="listaImgs">
-									<li class="linhaImg" th:each="f : ${filmes?.verFotos()}">
+									<li class="linhaImg" th:each="f, i : ${filmes?.verFotos()}"><!-- i, A VARIAVEL i É O CONTADOR -->
 										<a th:href="${f}" target="blank"><img  th:src="${f}"></a>
-										<a th:href="@{/excluirFotos(idFilm=${filmes.idFilme})}">Excluir</a>
+										<a class="link-excluir" th:href="@{/excluirFotos(idFilm=${filmes?.idFilme}, numFoto=${i.index})}">Excluir</a><!-- i.index, A PROPRIENDADE INDEX NE DA O NUMERO, USAMOS O index POR QUE O i É UM OBJETO -->
 									</li>
 								</ul>
 							</div>
@@ -162,6 +162,27 @@
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </main>
+            
+             <div class="right">
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                        <span class="material-icons-sharp active">light_mode</span>
+                        <span class="material-icons-sharp">dark_mode</span>
+                    </div>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Matheus</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="images/profile-1.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
           
         </div>
          

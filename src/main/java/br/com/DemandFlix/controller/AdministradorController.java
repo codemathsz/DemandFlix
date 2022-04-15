@@ -2,6 +2,8 @@ package br.com.DemandFlix.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +28,7 @@ import br.com.DemandFlix.util.HashUtil;
 
 
 @Controller
-public class CadastroAdminController {
+public class AdministradorController {
 
 	@Autowired
 	AdministradorRepository repository;
@@ -168,7 +170,7 @@ public class CadastroAdminController {
 		Administrador adm = repository.findById(id).get();
 		model.addAttribute("admins", adm);
 		
-		return "forward:formularioAdmin";
+		return "forward:/dashboard/admin/cadastroAdmin";
 		
 	}
 	
@@ -186,6 +188,26 @@ public class CadastroAdminController {
 		
 		model.addAttribute("admins", repository.buscarPorNome(nome));
 		return "dashboard/admin/listaAdmin";
+	}
+	
+	
+	@RequestMapping("login")
+	public String login(Administrador adminLogin, RedirectAttributes attr, HttpSession session) {// Administrador COLOCANDO UM OBJETO ADMINISTRADOR EM VEZ DE STRING, A SENHA QUE VEM DO INPUT JÁ VEM COM HASH, POIS PARA APLICAR A SENHA E O EMAIL ELE PASSA PELA MODEL E PELO SETTERS DOS DOIS  E O SET DA SENHA APLICA O LOGIN
+		
+		// BUSCA ADM NO BD
+		Administrador admin = repository.findByEmailAndSenha(adminLogin.getEmail(), adminLogin.getSenha());
+		
+		// VERIFICA SE EXISTI
+		if(admin == null) {
+			attr.addFlashAttribute("mensagemErro", "Login e/ou Senha inválido(s)");
+			return "redirect:/";
+		}else {
+			// SALVA O ADM NA SESSÃO
+			session.setAttribute("usuarioLogado", admin);
+			return "redirect:/dashboard/dashboard";
+		}
+		
+	
 	}
 }
 

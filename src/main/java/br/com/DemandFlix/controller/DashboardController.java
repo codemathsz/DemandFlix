@@ -16,7 +16,7 @@ import br.com.DemandFlix.model.Filme;
 import br.com.DemandFlix.repository.FilmeRepository;
 
 @Controller
-public class IndexController {
+public class DashboardController {
 
 	@Autowired
 	private FilmeRepository repositoryFilme;
@@ -53,7 +53,7 @@ public class IndexController {
 		model.addAttribute("numeroPaginas",numPaginas);
 		model.addAttribute("totalPaginas", totalPages);
 		
-		return "dashboard/index";
+		return "dashboard/dashboard";
 	}
 	
 	

@@ -4,6 +4,7 @@
 :root{
 
     --color-primary:#7380ec;
+    --color-primary-ligth:#cacfff;
     --color-danger:#ff7782;
     --color-sucess:#41f1b6;
     --color-warning:#ffbb55;
@@ -34,11 +35,12 @@
 
     --color-backgorund:#181a1e;
     --color-white: #202528;
-    --color-dark:   #edeffd;
+    --color-dark:   #c3c5d4;
     --color-dark-variant:  #a3bdcc;
     --color-light: rgba(0,0,0,0.4);
+    --color-info-dark:#bebaba;
     --box-shadow: 0 2rem 3rem var(--color-light);
- 
+    --color-primary-ligth: #7380ec;
 }
 
 
@@ -209,7 +211,7 @@ aside h3{
 aside .sidebar a{
 
     display: flex;
-    color: var(--color-info-dark);
+    color: var(--color-dark);
     margin:  1rem 0rem;
     gap:  1rem;
     align-items: center;
@@ -419,6 +421,58 @@ main .recent-orders{
     margin-top: 2rem;
 }
 
+main .formSeach-admin{
+
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.2em;
+    box-sizing: border-box;
+}
+
+main .divSearch-admin{
+
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+main .divSearch-admin label{
+
+    font-size: 1.5em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-dark);
+}
+
+main .divSearch-admin input{
+
+    height: 1.8em;
+    border: none;
+    outline: none;
+    border-radius: .9em;
+    box-sizing: var(--box-shadow);
+    text-align: center;
+    padding: 5px;
+    color: var(--color-dark-variant);
+    background-color: var(--color-white);
+}
+
+
+main .formSeach-admin button{
+
+    padding: .8em;
+    border-radius: 8px;
+    background-color: var(--color-primary-ligth);
+    color: var(--color-dark);
+    cursor: pointer;
+}
+
 main  .recent-orders h2{
 
     margin-bottom:  0.8rem;
@@ -492,6 +546,7 @@ main .recent-orders a{
 
 .right .theme-toggler span{
     font-size: 1.2rem;
+    padding: .4em;
     width: 50%;
     height: 100%;
     display: flex;

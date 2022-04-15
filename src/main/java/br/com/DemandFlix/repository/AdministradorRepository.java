@@ -15,4 +15,6 @@ public interface AdministradorRepository extends PagingAndSortingRepository<Admi
 
 	@Query("SELECT a FROM Administrador a WHERE a.nome LIKE %:n%")// LINGUAGEM JPQL, LINGUAGEM DE CONSULTA DO JAVA, c variavel
 	public List<Administrador> buscarPorNome(@Param("n") String nome);
+	
+	public Administrador findByEmailAndSenha(String email, String senha);
 }
