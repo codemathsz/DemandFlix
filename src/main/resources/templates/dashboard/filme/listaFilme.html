@@ -21,7 +21,7 @@
                 <div class="top">
 
                     <div class="logo">
-                        <img src="images/logo.png" >
+                        <img src="/images/logo.png" >
                         <h2>FI<span class="danger">lmes</span></h2>
                     </div>
 
@@ -80,7 +80,7 @@
             <main>
                 <div class="recent-orders">
 
-					<form class="formSeach-admin" action="/buscarPorNome" method="get">
+					<form class="formSeach-admin" action="" method="get">
 						<div class="divSearch-admin">
 							<label>Procurar Filme</label>
 							<input type="text" placeholder="Nome do Filme*" name="nome">
@@ -90,7 +90,7 @@
 					</form>
 
 
-                    <h2>Recent Orders</h2>
+                    <button>Cadastrar Filme</button>
                     <table>
                         <thead>
                             <tr>
@@ -113,7 +113,7 @@
                             <td th:text="${film.idFilme}" />
 							<!-- th:text, QUANDO FOR EMBUTIR ALGO DENTRO DA TAG  EXIBINDO COLUNA COM VALOR -->
 							<td th:text="${film.nomeFilme}" />
-							<td th:text="${film.genero}" />
+							<td th:text="${film.genero.nomeGenero}" />
 							<td th:text="${film.anoGravacao}" />
 							<td th:text="${film.diretor}" />
 							<td th:text="${film.elenco}" />

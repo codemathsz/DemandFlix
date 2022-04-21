@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.checkerframework.checker.units.qual.UnitsRelations;
@@ -32,8 +33,8 @@ public class Filme {
 	private String foto;
 	@Column(columnDefinition = "text")
 	private String descricao;
-	@ManyToMany //	UM FILME TEM MUITOS GENEROS
-	private List<Genero> genero;
+	@ManyToOne //	UM FILME TEM MUITOS GENEROS
+	private Genero genero;
 	
 	// METODO QUE RETORNA AS FOTOS NA FORMA DE UM VETOR STRING
 	public String[] verFotos() {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.DemandFlix.annotation.Publico;
 import br.com.DemandFlix.model.Administrador;
 import br.com.DemandFlix.repository.AdministradorRepository;
 import br.com.DemandFlix.util.HashUtil;
@@ -148,7 +149,7 @@ public class AdministradorController {
 			attr.addFlashAttribute("msgErro","Ocorreu um erro ao cadastrar: "+e.getMessage());
 		}
 		
-		return "redirect:formularioAdmin";
+		return "redirect:/cadastroAdmin";
 	}
 	
 	
@@ -192,6 +193,7 @@ public class AdministradorController {
 	
 	
 	@RequestMapping("login")
+	@Publico
 	public String login(Administrador adminLogin, RedirectAttributes attr, HttpSession session) {// Administrador COLOCANDO UM OBJETO ADMINISTRADOR EM VEZ DE STRING, A SENHA QUE VEM DO INPUT JÁ VEM COM HASH, POIS PARA APLICAR A SENHA E O EMAIL ELE PASSA PELA MODEL E PELO SETTERS DOS DOIS  E O SET DA SENHA APLICA O LOGIN
 		
 		// BUSCA ADM NO BD
@@ -204,10 +206,20 @@ public class AdministradorController {
 		}else {
 			// SALVA O ADM NA SESSÃO
 			session.setAttribute("usuarioLogado", admin);
-			return "redirect:/dashboard/dashboard";
+			return "redirect:/dashboard";
 		}
 		
 	
+	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		
+		//	 INVALIDA A SESSÃO
+		session.invalidate();
+		
+		// VOLTAR PARA O LOGIN(PAGINA INICIAL
+		return "redirect:/";
 	}
 }
 

@@ -29,7 +29,7 @@
 
                 </div>
 
-                <div class="sidebar">
+                <div class="sidebar" th:if="${session.usuarioLogado != null}">
 
                     <a href="/dashboard" class="active">
                         <span class="material-icons-sharp">grid_view</span>
@@ -68,7 +68,7 @@
                         <span class="material-icons-sharp">add</span>
                         <h3>Add Product</h3>
                     </a>
-                    <a href="/">
+                    <a href="logout">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Logout</h3>
                     </a>
@@ -191,8 +191,8 @@
                         <span class="material-icons-sharp">dark_mode</span>
                     </div>
                     <div class="profile">
-                        <div class="info">
-                            <p>Hey, <b>Matheus</b></p>
+                        <div class="info" th:if="${session.usuarioLogado != null}" >
+                            <p>Hey, <span th:text="${session?.usuarioLogado?.nome}"></span></p>
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">

@@ -15,7 +15,8 @@ public interface FilmeRepository extends PagingAndSortingRepository<Filme, Long>
 	@Query("SELECT f FROM Filme f WHERE f.nomeFilme LIKE %:nome% ")
 	public List<Filme> filtrarFilme(@Param("nome") String nome);
 
-	
+	@Query("SELECT f FROM Filme f WHERE f.genero = :idGenero")
+	public Iterable<Filme> findByGenero(@Param("idGenero") Long idGenero);
 	
 }
  
