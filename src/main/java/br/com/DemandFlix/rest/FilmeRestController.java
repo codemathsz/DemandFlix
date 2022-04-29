@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.DemandFlix.annotation.Publico;
 import br.com.DemandFlix.model.Filme;
 import br.com.DemandFlix.model.Genero;
 import br.com.DemandFlix.repository.FilmeRepository;
@@ -24,12 +25,14 @@ public class FilmeRestController {
 	
 	
 	// LISTAR OS FILMES
+	@Publico
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public Iterable<Filme> getFilmes(){
 		
 		return repository.findAll();
 	}
 	
+	@Publico
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Filme> getFilme(@PathVariable("id") Long idFilme){//ResponseEntity<Filme> PARA PERSONALIZAR O RETORNO 
 		
@@ -49,11 +52,13 @@ public class FilmeRestController {
 	} 
 	
 	
-	// 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Iterable<Filme> getGeneroFilme(@PathVariable("id") Long idGenero){
+	// listar os restaurantes por tipo
+	@Publico
+	@RequestMapping(value = "generos/{idGenero}", method = RequestMethod.GET)
+	public Iterable<Filme> getGeneroFilme(@PathVariable("idGenero") Long idGenero){
 
-		return repository.findByGenero(idGenero);
+		Iterable<Filme> lista = repository.findByGeneroIdGenero(idGenero); 
+		return lista;
 		 
 		
 	}

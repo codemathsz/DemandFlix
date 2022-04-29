@@ -1,20 +1,13 @@
 package br.com.DemandFlix.model;
 
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import org.checkerframework.checker.units.qual.UnitsRelations;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import br.com.DemandFlix.repository.FilmeRepository;
 import lombok.Data;
 
 @Entity
