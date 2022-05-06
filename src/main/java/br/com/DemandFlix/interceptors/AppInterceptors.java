@@ -1,13 +1,25 @@
 package br.com.DemandFlix.interceptors;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
+
+import br.com.DemandFlix.annotation.Privado;
 import br.com.DemandFlix.annotation.Publico;
+import br.com.DemandFlix.rest.UsuarioRestController;
 
 
 @Component
@@ -35,6 +47,39 @@ public class AppInterceptors implements HandlerInterceptor{
 			HandlerMethod metodo = (HandlerMethod) handler;
 			
 			if (uri.startsWith("/api")) {
+				// VARIÁVEL PARA TOKEN
+				String token = null;
+				//	VERIFICA SE É UM MÉTODO PRIVADO
+				if (metodo.getMethodAnnotation(Privado.class) != null) {
+					
+					try {
+						// SE O MÉTODO FOR PRIVADO RECUPERA O TOKEN
+						token = request.getHeader("Authorization");
+						Algorithm algoritmo = Algorithm.HMAC256(UsuarioRestController.SECRET);
+						// obj para verificar token
+						JWTVerifier verifier = JWT.require(algoritmo).withIssuer(UsuarioRestController.EMISSOR).build();
+						// DECODIFICA O TOKEN
+						DecodedJWT jwt = verifier.verify(token);// ESSA LINHA QUE VERIFICA O TOKEN
+						// RECUPERAR OS DADOS DO PAYLOAD
+						Map<String,Claim> claims = jwt.getClaims();
+						System.out.println(claims.get("name"));
+						
+						return true;
+						
+					}catch (Exception e) {
+						
+						e.printStackTrace();
+						// SE ESTIVER TENTANDO ACESSAR SEM O TOKEN
+						if (token == null) {
+							response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+						}else {
+							response.sendError(HttpStatus.FORBIDDEN.value(), e.getMessage());
+						}
+						return false;
+						
+					}
+					
+				}
 				return true;
 				
 			}else {

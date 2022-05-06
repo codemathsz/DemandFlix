@@ -1,12 +1,15 @@
 package br.com.DemandFlix.model;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -28,6 +31,8 @@ public class Filme {
 	private String descricao;
 	@ManyToOne //	UM FILME TEM MUITOS GENEROS
 	private Genero genero;
+	@OneToMany(mappedBy = "filme")
+	private List<Avaliacao> avaliacoes;
 	
 	// METODO QUE RETORNA AS FOTOS NA FORMA DE UM VETOR STRING
 	public String[] verFotos() {

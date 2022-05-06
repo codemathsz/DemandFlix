@@ -8,4 +8,6 @@ import br.com.DemandFlix.model.Usuario;
 @Repository
 public interface UsuarioRepository  extends PagingAndSortingRepository<Usuario, Long>{
 
+	// BUSCAR USUARIO NO BANCO
+	public Usuario findByEmailAndSenha(String email, String senha);
 }
